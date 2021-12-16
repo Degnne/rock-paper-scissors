@@ -4,10 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="header">
+        <div class="header-text">Rock, Paper, Scissors</div>
+        <div class="header-small-text">a game of chance</div>
+    </div>
+
+    <div class="game">
+
+        <div class="results">
+            <div class="player-column">
+                <div class="results-header player">Player</div>
+                <div class="score player" id="player-score"></div>
+                <div class="last-choice">Last Choice:</div>
+                <div class="choice player" id="player-choice"></div>
+            </div>
+            <div class="computer-column">
+                <div class="results-header computer">Computer</div>
+                <div class="score computer" id="computer-score"></div>
+                <div class="last-choice">Last Choice:</div>
+                <div class="choice computer" id="computer-choice"></div>
+            </div>
+        </div>
+
+        <div class="round">Round <span id="round-number"></span></div>
+        <div class="button-selection">
+            <div class="button-selection-text">Make Your Selection</div>
+            <div class="buttons" >
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissors">Scissors</button>
+            </div>                
+        </div>
+        
+    </div>
+
+    <div class="footer">
+        Copyright &copy; 2021 Jeffrey Bee
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

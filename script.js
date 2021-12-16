@@ -27,72 +27,68 @@ function game () {
 
     let playerPoints = 0;
     let computerPoints = 0;
+    let round = 1;
+    const roundDisplay = document.getElementById("round-number");
+    const resultsDisplay = document.getElementById("results");
+    const playerScoreDisplay = document.getElementById("player-score");
+    const computerScoreDisplay = document.getElementById("computer-score");
+    const playerChoiceDisplay = document.getElementById("player-choice");
+    const computerChoiceDisplay = document.getElementById("computer-choice");
+    updateScoreDisplay();
+
+    function updateScoreDisplay () {
+        roundDisplay.innerHTML = round;
+        playerScoreDisplay.innerHTML = playerPoints;
+        computerScoreDisplay.innerHTML = computerPoints;
+    }
+
+    function udpateChoiceDisplay (playerChoice, computerChoice) {
+        playerChoiceDisplay.innerHTML = playerChoice;
+        computerChoiceDisplay.innerHTML = computerChoice;
+    }
+
+    function checkScore() {
+        if(playerPoints >= 5 || computerPoints >= 5) {
+            //TODO: end game
+        }
+    }
+
     function playRound (playerSelection, computerSelection) {
-        playerSelection = playerSelection.toLowerCase();
-        if (playerSelection == "rock") {
-            if (computerSelection == "rock") {
-                return "It's a tie! Rock versus Rock!";
-            }
-            else if (computerSelection == "paper") {
-                computerPoints++;
-                return "You lose! Paper beats Rock!";
-            }
-            else if (computerSelection == "scissors") {
-                playerPoints++;
-                return "You win! Rock beats scissors!";
-            }
-            else {
-                return "Computer made an invalid choice."
-            }
+        switch(playerSelection) {
+            case "rock":
+                switch(computerSelection) {
+                    case "rock": break;
+                    case "paper": computerPoints++; break;
+                    case "scissors": playerPoints++; break;
+                }
+                break;
+            case "paper":
+                switch(computerSelection) {
+                    case "rock": playerPoints++; break;
+                    case "paper": break;
+                    case "scissors": computerPoints++; break;
+                }
+                break;
+            case "scissors":
+                switch(computerSelection) {
+                    case "rock": computerPoints++; break;
+                    case "paper": playerPoints++; break;
+                    case "scissors": break;
+                }
+                break;
         }
-        else if (playerSelection == "paper") {
-            if (computerSelection == "paper") {
-                return "It's a tie! Paper versus Paper!";
-            }
-            else if (computerSelection == "scissors") {
-                computerPoints++;
-                return "You lose! Scissors beats paper!";
-            }
-            else if (computerSelection == "rock") {
-                playerPoints++;
-                return "You win! Paper beats rock!";
-            }
-            else {
-                return "Computer made an invalid choice."
-            }
-        }
-        else if (playerSelection == "scissors") {
-            if (computerSelection == "scissors") {
-                return "It's a tie! Scissors versus Scissors";
-            }
-            else if (computerSelection == "rock") {
-                computerPoints++;
-                return "You lose! Rock beats scissors!";
-            }
-            else if (computerSelection == "paper") {
-                playerPoints++;
-                return "You win! Scissors beats paper!";
-            }
-            else {
-                return "Computer made an invalid choice."
-            }
-        }
+        round++;
+        updateScoreDisplay();
+        udpateChoiceDisplay(playerSelection, computerSelection);
+        checkScore();   
     }
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            playRound(button.id , computerPlay());
+        });
+    });
 
-    for (let i = 1; i <= 5; i++) {
-        let playerInput = "";
-        const computerInput = computerPlay();
-        do {
-            playerInput = getPlayerInput();
-        }
-        while (!validatePlayerInput(playerInput));
-
-        console.log("Round " + i + ": " + playRound(playerInput, computerInput) + " " + playerPoints + " to " + computerPoints);
-    }
-
-    if (playerPoints > computerPoints) console.log("You win!");
-    else if (playerPoints < computerPoints) console.log("You lose!");
-    else console.log("It's a tie!");
 }
 
 game();
